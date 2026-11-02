@@ -1,7 +1,13 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include<direct.h> /* needed to find current folder */
+#ifdef _WIN32
+#include <direct.h> /* Windows current-directory API */
+#define GETCWD(buffer, size) _getcwd((buffer), (size))
+#else
+#include <unistd.h> /* POSIX current-directory API */
+#define GETCWD(buffer, size) getcwd((buffer), (size))
+#endif
 
 /* Structure of an AVL Node */
 struct Node {
